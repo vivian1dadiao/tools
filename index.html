@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人机交流理论可视化</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .theory-comparison {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .theory-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .theory-card h3 {
+            color: #3498db;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .chart-container {
+            height: 400px;
+            margin: 20px 0;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            font-style: italic;
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .concept-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .concept-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            flex: 1;
+            min-width: calc(33% - 20px);
+        }
+
+        .concept-card h3 {
+            color: #2980b9;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #3498db;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid #3498db;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .left::after {
+            right: -10px;
+        }
+
+        .right::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-content h3 {
+            margin-top: 0;
+            color: #2980b9;
+        }
+
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::after {
+                left: 15px;
+            }
+
+            .left::after, .right::after {
+                left: 15px;
+            }
+
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>人机交流理论可视化</h1>
+
+    <div class="card">
+        <h2>简介</h2>
+        <p>随着人工智能技术的快速发展，人类与机器的互动方式发生了巨大变化。人机交流理论（Human-Machine Communication, HMC）研究人类如何与计算机、人工智能等非人类实体进行交互和交流，试图解释人类为什么会对机器产生特定的反应，以及这些反应背后的心理机制。本页面将可视化展示两个主要的理论框架：CASA（Computers Are Social Actors，计算机是社会行动者）和机器启发式（Machine Heuristic）。</p>
+    </div>
+
+    <div class="card">
+        <h2>主要理论框架对比</h2>
+
+        <div class="theory-comparison">
+            <div class="theory-card">
+                <h3>CASA模型</h3>
+                <p><strong>核心观点：</strong>人们会无意识地将社会规则应用于计算机，像对待人类一样对待计算机。</p>
+                <p><strong>关键概念：</strong>无意识反应（Mindlessness）- 人们在与计算机互动时会本能地激活人际交往的脚本。</p>
+                <p><strong>代表研究者：</strong>Reeves & Nass, 1996; Nass & Moon, 2000</p>
+                <p><strong>主要发现：</strong>人们会对计算机表现出礼貌行为、性别刻板印象、互惠行为等通常只针对人类的社会反应。</p>
+            </div>
+
+            <div class="theory-card">
+                <h3>机器启发式</h3>
+                <p><strong>核心观点：</strong>人们持有关于机器特性的特定信念，这些信念影响他们对机器的反应。</p>
+                <p><strong>关键概念：</strong>有意识的信念 - 人们相信机器比人类更客观、公正、准确。</p>
+                <p><strong>代表研究者：</strong>Sundar, 2020; Sundar & Kim, 2019</p>
+                <p><strong>主要发现：</strong>人们更愿意向AI而非人类披露隐私信息，相信AI生成的内容更客观公正，对AI的决策有不同的期望。</p>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-placeholder">
+                <p>理论框架对比图表 - 显示CASA理论与机器启发式的主要差异和应用领域</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>理论模型比较</h2>
+        <table>
+            <tr>
+                <th>特征</th>
+                <th>CASA模型</th>
+                <th>机器启发式</th>
+            </tr>
+            <tr>
+                <td>认知处理模式</td>
+                <td>无意识的、自动的</td>
+                <td>有意识的、谨慎的</td>
+            </tr>
+            <tr>
+                <td>源头感知</td>
+                <td>将计算机视为类人实体</td>
+                <td>明确区分人类与机器的不同</td>
+            </tr>
+            <tr>
+                <td>理论基础</td>
+                <td>社会认知、自动化处理</td>
+                <td>启发式-系统处理模型</td>
+            </tr>
+            <tr>
+                <td>对机器期望</td>
+                <td>社会角色期望</td>
+                <td>机器特性期望（客观、精确）</td>
+            </tr>
+            <tr>
+                <td>影响因素</td>
+                <td>认知负荷、注意力分散</td>
+                <td>个人信念、过往经验</td>
+            </tr>
+            <tr>
+                <td>理论局限</td>
+                <td>可证伪性问题、社会反应多样性</td>
+                <td>启发式内容变化、理论角色不明确</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>关键概念</h2>
+        <div class="concept-cards">
+            <div class="concept-card">
+                <h3>无意识反应 (Mindlessness)</h3>
+                <p>人们在与计算机交互时不加思考地激活人际交往脚本，忽视计算机与人类的本质差异。这种无意识反应导致人们对计算机表现出与对人相似的社会反应。</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>机器启发式信念</h3>
+                <p>人们持有的关于机器特性的普遍信念，如认为机器比人类更客观、精确、无偏见、理性，并基于这些信念调整自己的反应和行为。</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>源头导向 (Source Orientation)</h3>
+                <p>人们如何感知和区分交流的源头（人类或机器），这种感知会影响信息处理方式和对内容的评估。</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>认知处理模式</h3>
+                <p>人们处理信息时采用的思考方式，包括启发式处理（快速、节省认知资源）和系统处理（深思熟虑、需要更多认知投入）。</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>AI中介交流</h3>
+                <p>人工智能参与并改变人际交流过程的现象，AI可能作为交流工具、交流伙伴或内容创作者影响人类交流。</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>整合理论视角</h3>
+                <p>将CASA和机器启发式整合为更全面的理论框架，承认人们既可能无意识地将社会规则应用于机器，也可能有意识地根据机器特性调整反应。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>理论演变时间线</h2>
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>1950年</h3>
+                    <p>图灵测试提出，确立了机器是否可以展现智能行为的评估标准。</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>1996年</h3>
+                    <p>Reeves & Nass提出"媒介即现实"理论，认为人们自然而然地将计算机视为社会行动者。</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>2000年</h3>
+                    <p>Nass & Moon进一步发展CASA理论，提出无意识反应解释。</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>2008-2010年</h3>
+                    <p>研究者开始直接检验无意识反应假设，如Lee (2008, 2010)的实验研究。</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>2019-2020年</h3>
+                    <p>Sundar & Kim提出机器启发式概念，关注人们如何根据对机器的特定信念调整反应。</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>2022-2023年</h3>
+                    <p>整合理论方向发展，试图融合CASA和机器启发式的理论观点。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>研究应用领域</h2>
+        <div class="chart-container">
+            <div class="chart-placeholder">
+                <p>人机交流理论应用领域可视化 - 显示理论在不同领域的应用情况</p>
+            </div>
+        </div>
+        <div class="concept-cards">
+            <div class="concept-card">
+                <h3>新闻与信息可信度</h3>
+                <p>研究人们如何评估AI生成内容的可信度，以及AI署名对新闻感知偏见的影响。</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>隐私与信息披露</h3>
+                <p>探讨人们为何愿意向AI而非人类披露更多敏感个人信息。</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>社交媒体交互</h3>
+                <p>研究用户如何与AI内容审核、推荐系统和AI聊天机器人互动。</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>AI创作评估</h3>
+                <p>调查人们如何评价AI生成的艺术、音乐和其他创意内容。</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>人机友谊形成</h3>
+                <p>探究用户如何与社交AI建立友谊关系，以及这些关系的特性。</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>偏见与公平性</h3>
+                <p>研究人们对AI决策中偏见的感知，以及如何评估AI系统的公平性。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>未来研究方向</h2>
+        <p>人机交流理论正在不断发展，未来研究将需要关注以下方面：</p>
+        <ol>
+            <li><strong>理论整合</strong>：将CASA和机器启发式的见解整合为更全面的理论框架</li>
+            <li><strong>个体差异</strong>：探索个人因素如何影响人机交流方式</li>
+            <li><strong>认知处理模式</strong>：进一步明确无意识处理和有意识处理在人机交流中的作用</li>
+            <li><strong>机器启发式的变化</strong>：随着AI技术发展，人们对机器的信念如何演变</li>
+            <li><strong>伦理考量</strong>：探讨人机交流中的伦理问题和社会影响</li>
+            <li><strong>跨文化分析</strong>：比较不同文化背景下人机交流的差异</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h2>参考文献</h2>
+        <p>Lee, E.-J. (2008). Gender stereotyping of computers: Resource depletion or reduced attention? Journal of Communication, 58(2), 301–320.</p>
+        <p>Lee, E.-J. (2010). What triggers social responses to flattering computers? Experimental tests of anthropomorphism and mindlessness explanations. Communication Research, 37(2), 191–214.</p>
+        <p>Nass, C., & Moon, Y. (2000). Machines and mindlessness: Social responses to computers. Journal of Social Issues, 56(1), 81–103.</p>
+        <p>Reeves, B., & Nass, C. (1996). The media equation: How people treat computers, television, and new media like real people and places. Cambridge University Press.</p>
+        <p>Sundar, S. S. (2020). Rise of machine agency: A framework for studying the psychology of human–AI interaction (HAII). Journal of Computer-Mediated Communication, 25(1), 74–88.</p>
+        <p>Sundar, S. S., & Kim, J. (2019). Machine heuristic: When we trust computers more than humans with our personal information. In Proceedings of the 2019 CHI conference on human factors in computing systems (pp. 1–9).</p>
+    </div>
+</body>
+</html>
